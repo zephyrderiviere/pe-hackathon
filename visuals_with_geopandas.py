@@ -1,4 +1,4 @@
-from common import*
+from common_test import*
 
 import geopandas
 import folium
@@ -20,7 +20,10 @@ earth_map = folium.Map(
     max_long=200)
 
 from folium.plugins import MarkerCluster
-clusterList = {i: MarkerCluster(name = f"cluster n°{i}", tooltip=f"cluster n°{i}").add_to(earth_map) for i in df.GeoGroup.unique()}
+clusterList = {i: MarkerCluster(
+    name = f"cluster n°{i}",
+    tooltip=f"cluster n°{i}",
+    maxClusterRadius=250).add_to(earth_map) for i in df.GeoGroup.unique()}
 
 for i in range (len(df)):
     folium.Marker(
