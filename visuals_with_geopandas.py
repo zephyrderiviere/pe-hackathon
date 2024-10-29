@@ -43,6 +43,12 @@ for i in range (len(df)):
 
 earth_map.save("visuals/earthquake.html")
 
+geo_groups = {i: [] for i in range(NUMBER_OF_CLUSTERS)}
+
+for i in range(len(df)):
+    lat, long = df[['Latitude', 'Longitude']].iloc[i]
+    geo_groups.put(df['GeoGroup'].iloc[i], geo_groups.get())
+
 
 
 folium.GeoJson(data=df['GeoGroup']).add_to(earth_map)
