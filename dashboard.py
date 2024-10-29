@@ -1,5 +1,5 @@
 from common_test import *
-from visuals_with_geopandas import *
+#from visuals_with_geopandas import *
 
 import streamlit as st
 import streamlit_folium as st_f
@@ -11,6 +11,8 @@ def main_page():
     st.title("Earthquake analysis - Hackathon")
     st.subheader("By Armand, Romain, Zéphyr et Mathis")
 
+    st.markdown("""This dashboard aims at showing our different results and analysis, none of the contents are generated on the spot. Unfortunately, \
+                the interactive map does not work as intended for obscure reasons.""")
 
 def general():
     """ Page with all general information on the database """
@@ -29,7 +31,7 @@ def general():
 
 
     st.text("Visualisation of all earthquakes :")
-    st.image("./map.png")
+    st.image("./visuals/map.png")
     
     st.text("It is not fully complete though, here are all the missing values :")
     missing_values = df.isna().sum()
@@ -38,16 +40,32 @@ def general():
     st.text("Finally, here is a small overview of the actual database : ")
     st.dataframe(df.iloc[:10])
 
+def misc():
+    """ Misc informations """
+
+    st.title("Miscalleneous informations and graphs")
+
+    st.text("Cumulative amount of earthquakes since 1965")
+    st.video("./visuals/movie.mp4")
+
+    st.markdown("The bars represent 1st and 3rd quartile, they are very close which is odd : are almost all earthquakes close to magnitude 6 ?")
+    st.text("Graph of the magnitude of earthquakes depending on their type")
+    st.image("./visuals/graph_type-mag.jpeg")
+
 def interactive_map():
     """ Interactive map page """
 
     st.title("Interactive map to look around")
-    st_f.st_folium(earth_map)
+    # st_f.st_folium(earth_map)
+    with open("./visuals/earthquake.html") as f:
+        html_data = f.read()
+    st.components.v1.html(html_data)
     
 
 page_names_to_funcs = {
     "Introduction": main_page,
     "General information": general,
+    "Misc": misc,
     "Inteactive map" : interactive_map
 }
 
