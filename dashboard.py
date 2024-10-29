@@ -29,7 +29,7 @@ def general():
 
 
     st.text("Visualisation of all earthquakes :")
-    st.image("./map.png")
+    st.image("./visuals/map.png")
     
     st.text("It is not fully complete though, here are all the missing values :")
     missing_values = df.isna().sum()
@@ -42,7 +42,8 @@ def interactive_map():
     """ Interactive map page """
 
     st.title("Interactive map to look around")
-    st_f.st_folium(earth_map)
+    # st_f.st_folium(earth_map)
+    st.html("./earthquake.html")
     
 
 page_names_to_funcs = {
