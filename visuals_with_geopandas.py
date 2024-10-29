@@ -1,7 +1,20 @@
-from common import*
+#from common import*
+from common_test import*
+
+from HCA import HCA
+
+import sklearn.cluster as cluster
 
 import geopandas
 import folium
+
+
+
+def create_clusters(n):
+    kmeans = cluster.KMeans(n).fit(df[['Latitude', 'Longitude']])
+    return kmeans
+    
+    
 
 
 #To limit the map at the point of interest
@@ -21,21 +34,18 @@ earth_map = folium.Map(
 
 
 
-for i in range (100):
+for i in range (len(df)):
     folium.Marker(
         location=(df['Latitude'].iloc[i], df['Longitude'].iloc[i]),
         tooltip=df['ID'].iloc[i],
-        popup=f"Date: {df['Date'].iloc[i]} {df['Time'].iloc[i]}\n Magnitude: {df['Magnitude'].iloc[i]}"
+        popup=f"Date: {df['Date'].iloc[i]} {df['Date'].iloc[i]}\n Magnitude: {df['Magnitude'].iloc[i]}"
     ).add_to(earth_map)
 
 
+kmeans3 = create_clusters(3)
 
 
-    
 
-
-earth_map.save("visuals/earthquake.html")
-
-
-print(df)
 print(df.dtypes)
+
+#earth_map.save("visuals/earthquake.html")
