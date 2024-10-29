@@ -4,7 +4,9 @@ from common import*
 import geopandas
 import folium
 
+import scipy.spatial as sp
 
+from shapely.geometry import Polygon
 
     
     
@@ -45,12 +47,33 @@ earth_map.save("visuals/earthquake.html")
 
 geo_groups = {i: [] for i in range(NUMBER_OF_CLUSTERS)}
 
+
 for i in range(len(df)):
     lat, long = df[['Latitude', 'Longitude']].iloc[i]
-    geo_groups.put(df['GeoGroup'].iloc[i], geo_groups.get())
+    geo_groups[df['GeoGroup'].iloc[i]].append([long, lat])
+
+
+coords = [geo_groups[i] for i in range(NUMBER_OF_CLUSTERS)]
 
 
 
-folium.GeoJson(data=df['GeoGroup']).add_to(earth_map)
+polygons = []
+for l in coords:
+    if len(l) > 2:
+        envelope = []
+        
+        for k in sp.ConvexHull(l).vertices:
+            envelope.append(l[k])
+        polygons.append(Polygon(envelope))
 
-earth_map.save("visuals/earthquakes_groups.html")
+
+
+
+
+for i in range(len(polygons)):
+    geodata = geopandas.GeoDataFrame(index=[0], crs = 'epsg:4326', geometry=[polygons[i]])
+    folium.GeoJson(data=geodata).add_to(earth_map)
+    print("nice !")
+
+
+earth_map.save("visuals/earthquake_groups.html")

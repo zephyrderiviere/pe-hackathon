@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import sklearn.cluster as cluster
 
 
-NUMBER_OF_CLUSTERS = 20
+NUMBER_OF_CLUSTERS = 100
 
 
 def create_clusters(n):
@@ -24,4 +24,4 @@ df.drop("Time", axis = 1, inplace=True)
 #Ajout d'une catégorie représenant le groupe
 
 df['GeoGroup'] = create_clusters(NUMBER_OF_CLUSTERS).labels_
-
+df['GeoGroup'].astype(int)

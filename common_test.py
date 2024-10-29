@@ -8,11 +8,16 @@ import matplotlib.pyplot as plt
 
 import sklearn.cluster as cluster
 
-
+NUMBER_OF_CLUSTERS = 20
 
 def create_clusters(n):
     kmeans = cluster.KMeans(n).fit(df[['Latitude', 'Longitude']])
     return kmeans
+
+
+@np.vectorize
+def to_int(x):
+    return x.item()
 
 df = pd.read_csv("./data/earthquakes_min.csv")
 df["Date"] = pd.to_datetime(df["Date"] + " " + df["Time"], format="%m/%d/%Y %H:%M:%S")
@@ -20,4 +25,4 @@ df.drop("Time", axis = 1, inplace=True)
 
 #Ajout d'une catégorie représenant le groupe
 
-df['GeoGroup'] = create_clusters(20).labels_
+df['GeoGroup'] = create_clusters(NUMBER_OF_CLUSTERS).labels_
