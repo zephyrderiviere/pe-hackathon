@@ -1,23 +1,16 @@
-#from common import*
-from common_test import*
-
-from HCA import HCA
-
-import sklearn.cluster as cluster
+from common import*
+#from common_test import*
 
 import geopandas
 import folium
 
 
 
-def create_clusters(n):
-    kmeans = cluster.KMeans(n).fit(df[['Latitude', 'Longitude']])
-    return kmeans
     
     
 
 
-#To limit the map at the point of interest
+#To limit the map at the points of interest
 min_lat = df['Latitude'].min()
 min_long = df['Longitude'].min()
 max_lat = df['Latitude'].max()
@@ -35,18 +28,20 @@ earth_map = folium.Map(
 from folium.plugins import MarkerCluster
 clusterList = {i: MarkerCluster(name = f"cluster n°{i}", tooltip=f"cluster n°{i}").add_to(earth_map) for i in df.GeoGroup.unique()}
 
+
+
 for i in range (len(df)):
     folium.Marker(
         location=(df['Latitude'].iloc[i], df['Longitude'].iloc[i]),
         tooltip=df['ID'].iloc[i],
         popup=f"Date: {df['Date'].iloc[i]} {df['Date'].iloc[i].time}\n Magnitude: {df['Magnitude'].iloc[i]}"
-    ).add_to(clusterList[df["GeoGroup"].iloc[i]])
+    ).add_to(clusterList.get(df["GeoGroup"].iloc[i]))
 
 
-kmeans3 = create_clusters(3)
+earth_map.save("visuals/earthquake.html")
 
 
 
-print(df.dtypes)
+folium.GeoJson(data=df['GeoGroup']).add_to(earth_map)
 
-#earth_map.save("visuals/earthquake.html")
+earth_map.save("visuals/earthquakes_groups.html")
