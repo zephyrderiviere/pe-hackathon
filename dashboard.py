@@ -11,6 +11,8 @@ def main_page():
     st.title("Earthquake analysis - Hackathon")
     st.subheader("By Armand, Romain, Zéphyr et Mathis")
 
+    st.markdown("""This dashboard aims at showing our different results and analysis, none of the contents are generated on the spot. Unfortunately, \
+                some features such as the interactive map do not work for obscure reasons.""")
 
 def general():
     """ Page with all general information on the database """
@@ -38,18 +40,28 @@ def general():
     st.text("Finally, here is a small overview of the actual database : ")
     st.dataframe(df.iloc[:10])
 
+def misc():
+    """ Misc informations """
+
+    st.title("Miscalleneous informations and graphs")
+
+    st.text("Cumulative amount of earthquakes since 1965")
+    st.video("./visuals/movie.mp4")
+
 def interactive_map():
     """ Interactive map page """
 
     st.title("Interactive map to look around")
     # st_f.st_folium(earth_map)
     with open("./visuals/earthquake.html") as f:
-        st.html(f.read())
+        html_data = f.read()
+    st.components.v1.html(html_data)
     
 
 page_names_to_funcs = {
     "Introduction": main_page,
     "General information": general,
+    "Misc": misc,
     "Inteactive map" : interactive_map
 }
 
