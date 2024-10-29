@@ -11,7 +11,7 @@ def main_page():
     st.title("Earthquake analysis - Hackathon")
     st.subheader("By Armand, Romain, Zéphyr et Mathis")
 
-    st.markdown("""This dashboard aims at showing our different results and analysis. Unfortunately, \
+    st.markdown("""This dashboard aims at showing our different results and analysis, none of the contents are generated on the spot. Unfortunately, \
                 some features such as the interactive map do not work for obscure reasons.""")
 
 def general():
