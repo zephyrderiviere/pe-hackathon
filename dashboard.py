@@ -12,7 +12,7 @@ def main_page():
     st.subheader("By Armand, Romain, Zéphyr et Mathis")
 
     st.markdown("""This dashboard aims at showing our different results and analysis, none of the contents are generated on the spot. Unfortunately, \
-                some features such as the interactive map do not work for obscure reasons.""")
+                the interactive map does not work as intended for obscure reasons.""")
 
 def general():
     """ Page with all general information on the database """
@@ -47,6 +47,10 @@ def misc():
 
     st.text("Cumulative amount of earthquakes since 1965")
     st.video("./visuals/movie.mp4")
+
+    st.markdown("The bars represent 1st and 3rd quartile, they are very close which is odd : are almost all earthquakes close to magnitude 6 ?")
+    st.text("Graph of the magnitude of earthquakes depending on their type")
+    st.image("./visuals/graph_type-mag.jpeg")
 
 def interactive_map():
     """ Interactive map page """
