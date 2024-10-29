@@ -1,7 +1,20 @@
+#from common import*
 from common_test import*
+
+from HCA import HCA
+
+import sklearn.cluster as cluster
 
 import geopandas
 import folium
+
+
+
+def create_clusters(n):
+    kmeans = cluster.KMeans(n).fit(df[['Latitude', 'Longitude']])
+    return kmeans
+    
+    
 
 
 #To limit the map at the point of interest
@@ -33,13 +46,10 @@ for i in range (len(df)):
     ).add_to(clusterList[df["GeoGroup"].iloc[i]])
 
 
+kmeans3 = create_clusters(3)
 
 
-    
 
+print(df.dtypes)
 
 earth_map.save("visuals/earthquake.html")
-
-
-print(df)
-print(df.dtypes)
