@@ -3,5 +3,5 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv("data/earthquakes.csv")
+df = pd.read_csv("data/earthquake.csv")
 
