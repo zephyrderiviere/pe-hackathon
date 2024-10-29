@@ -1,5 +1,5 @@
 from common_test import *
-from visuals_with_geopandas import *
+#from visuals_with_geopandas import *
 
 import streamlit as st
 import streamlit_folium as st_f
@@ -43,7 +43,8 @@ def interactive_map():
 
     st.title("Interactive map to look around")
     # st_f.st_folium(earth_map)
-    st.html("./earthquake.html")
+    with open("./visuals/earthquake.html") as f:
+        st.html(f.read())
     
 
 page_names_to_funcs = {
